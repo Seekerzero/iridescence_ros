@@ -1,8 +1,14 @@
 cmake_minimum_required(VERSION 3.18)
 project(iridescence_ros_tools)
+include(ExternalProject)
+
 
 ## Compile as C++11, supported in ROS Kinetic and newer
-# add_compile_options(-std=c++11)
+add_compile_options(-std=c++17)
+set(OpenGL_GL_PREFERENCE GLVND)
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_LIST_DIR}/cmake")
+set(CPACK_PROJECT_NAME ${PROJECT_NAME})
+set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -13,9 +19,15 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
 )
 
+
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
-
+find_package(Iridescence REQUIRED)
+find_package(PCL 1.10 REQUIRED)
+find_package(Boost REQUIRED filesystem program_options)
+find_package(Eigen3 REQUIRED)
+find_package(PNG REQUIRED)
+find_package(JPEG REQUIRED)
 
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
@@ -103,9 +115,9 @@ find_package(catkin REQUIRED COMPONENTS
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES iridescence_ros_tools
-#  CATKIN_DEPENDS roscpp rospy std_msgs
+ INCLUDE_DIRS include
+ LIBRARIES iridescence_ros_tools
+ CATKIN_DEPENDS roscpp rospy std_msgs
 #  DEPENDS system_lib
 )
 
@@ -115,10 +127,17 @@ catkin_package(
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
-include_directories(
-# include
+include_directories(PUBLIC
+  include
   ${catkin_INCLUDE_DIRS}
+  ${Iridescence_INCLUDE_DIRS}
+  ${EIGEN3_INCLUDE_DIRS}
+  ${PNG_INCLUDE_DIRS}
+  ${JPEG_INCLUDE_DIRS}
+  ${PCL_INCLUDE_DIRS}
 )
+
+
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
@@ -134,6 +153,9 @@ include_directories(
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/iridescence_ros_tools_node.cpp)
+add_executable(${PROJECT_NAME}
+src/sample_viewer.cpp
+src/sample_viewer.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -149,6 +171,22 @@ include_directories(
 # target_link_libraries(${PROJECT_NAME}_node
 #   ${catkin_LIBRARIES}
 # )
+
+set(all_libraries
+  ${catkin_LIBRARIES}
+  ${Iridescence_LIBRARIES}
+  ${PNG_LIBRARIES}
+  ${JPEG_LIBRARIES}
+  ${PCL_LIBRARIES}
+  ${Boost_LIBRARIES}
+  ${Eigen3_LIBRARIES}
+)
+
+target_link_libraries(${PROJECT_NAME}
+  ${all_libraries}
+)
+
+add_definitions(${PCL_DEFINITIONS})
 
 #############
 ## Install ##
@@ -204,3 +242,6 @@ include_directories(
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
+
+
+
