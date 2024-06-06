@@ -142,6 +142,7 @@ add_definitions(${PCL_DEFINITIONS})
 ## Declare a C++ library
 add_library(${PROJECT_NAME} SHARED
   src/utils/TopicGrabber.cpp
+  src/gui/ToolViewer.cpp
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC
@@ -164,7 +165,7 @@ target_link_libraries(${PROJECT_NAME}
 
 
 add_executable(viewer
-src/sample_viewer.cpp
+src/viewer.cpp
 )
 target_link_libraries(viewer
   ${PROJECT_NAME}
