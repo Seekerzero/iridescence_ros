@@ -127,7 +127,24 @@ catkin_package(
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
-include_directories(PUBLIC
+# include_directories(PUBLIC
+#   include
+#   ${catkin_INCLUDE_DIRS}
+#   ${Iridescence_INCLUDE_DIRS}
+#   ${EIGEN3_INCLUDE_DIRS}
+#   ${PNG_INCLUDE_DIRS}
+#   ${JPEG_INCLUDE_DIRS}
+#   ${PCL_INCLUDE_DIRS}
+# )
+
+add_definitions(${PCL_DEFINITIONS})
+
+## Declare a C++ library
+add_library(${PROJECT_NAME} SHARED
+  src/utils/TopicGrabber.cpp
+)
+
+target_include_directories(${PROJECT_NAME} PUBLIC
   include
   ${catkin_INCLUDE_DIRS}
   ${Iridescence_INCLUDE_DIRS}
@@ -136,26 +153,40 @@ include_directories(PUBLIC
   ${JPEG_INCLUDE_DIRS}
   ${PCL_INCLUDE_DIRS}
 )
+target_link_libraries(${PROJECT_NAME}
+  ${Iridescence_LIBRARIES}
+  ${PNG_LIBRARIES}
+  ${JPEG_LIBRARIES}
+  ${PCL_LIBRARIES}
+  ${Boost_LIBRARIES}
+  ${Eigen3_LIBRARIES}
+)
 
 
-
-## Declare a C++ library
-# add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/iridescence_ros_tools.cpp
-# )
-
-## Add cmake target dependencies of the library
-## as an example, code may need to be generated before libraries
-## either from message generation or dynamic reconfigure
-# add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-
-## Declare a C++ executable
-## With catkin_make all packages are built within a single CMake context
-## The recommended prefix ensures that target names across packages don't collide
-# add_executable(${PROJECT_NAME}_node src/iridescence_ros_tools_node.cpp)
-add_executable(${PROJECT_NAME}
+add_executable(viewer
 src/sample_viewer.cpp
-src/sample_viewer.cpp)
+)
+target_link_libraries(viewer
+  ${PROJECT_NAME}
+  ${catkin_LIBRARIES}
+)
+target_include_directories(viewer PUBLIC
+  ${catkin_INCLUDE_DIRS}
+)
+
+
+install(
+  TARGETS
+  ${PROJECT_NAME}
+)
+
+install(
+  TARGETS
+  viewer
+  DESTINATION 
+  lib/${PROJECT_NAME}
+)
+
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -172,21 +203,10 @@ src/sample_viewer.cpp)
 #   ${catkin_LIBRARIES}
 # )
 
-set(all_libraries
-  ${catkin_LIBRARIES}
-  ${Iridescence_LIBRARIES}
-  ${PNG_LIBRARIES}
-  ${JPEG_LIBRARIES}
-  ${PCL_LIBRARIES}
-  ${Boost_LIBRARIES}
-  ${Eigen3_LIBRARIES}
-)
 
-target_link_libraries(${PROJECT_NAME}
-  ${all_libraries}
-)
 
-add_definitions(${PCL_DEFINITIONS})
+
+
 
 #############
 ## Install ##
