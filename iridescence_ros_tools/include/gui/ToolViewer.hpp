@@ -19,6 +19,7 @@ namespace irtools{
 
             bool show_add_topic_window = false;
             std::string drop_list_selected_topic = "Select a topic";
+            
         public:
             ToolViewer(){
                 viewer_ = guik::LightViewer::instance();
