@@ -4,6 +4,7 @@
 #include <ros/ros.h>
 #include <memory>
 #include <utils/TopicGrabber.hpp>
+#include <alg/voxel.hpp>
 #include <glk/primitives/primitives.hpp>
 #include <guik/viewer/light_viewer.hpp>
 

@@ -6,7 +6,7 @@ include(ExternalProject)
 ## Compile as C++11, supported in ROS Kinetic and newer
 add_compile_options(-std=c++17)
 set(OpenGL_GL_PREFERENCE GLVND)
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_LIST_DIR}/cmake")
+# set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_LIST_DIR}/cmake")
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
 
@@ -148,14 +148,15 @@ add_library(${PROJECT_NAME} SHARED
 target_include_directories(${PROJECT_NAME} PUBLIC
   include
   ${catkin_INCLUDE_DIRS}
-  ${Iridescence_INCLUDE_DIRS}
+  # ${Iridescence_INCLUDE_DIRS}
   ${EIGEN3_INCLUDE_DIRS}
   ${PNG_INCLUDE_DIRS}
   ${JPEG_INCLUDE_DIRS}
   ${PCL_INCLUDE_DIRS}
 )
 target_link_libraries(${PROJECT_NAME}
-  ${Iridescence_LIBRARIES}
+  # ${Iridescence_LIBRARIES}
+  Iridescence::Iridescence
   ${PNG_LIBRARIES}
   ${JPEG_LIBRARIES}
   ${PCL_LIBRARIES}
