@@ -58,6 +58,32 @@ namespace irtools{
         if (voxel_points_.size() > config_.voxel_init_num_){
             init_plane();
         }
+
+        init_octo_ = true;
+    }
+
+
+
+    void VoxelManager::initVoxelMap(const pcl::PointCloud<pcl::PointXYZI>::Ptr &input_cloud,std::unordered_map<Voxel, OctoTree *> &voxel_map){
+        uint planeSize = input_cloud->size();
+
+        for (uint i = 0; i < planeSize; i++){
+            Voxel voxel(input_cloud->points[i], config_);
+            Eigen::Vector3d point(input_cloud->points[i].x, input_cloud->points[i].y, input_cloud->points[i].z);
+
+            double locXYZ[3];
+
+            for (int j = 0; j < 3; j++){
+                locXYZ[j] = point(j)/ config_.voxel_size_;
+                if (locXYZ[j] < 0){
+                    locXYZ[j] -= 1;
+                }
+            }
+
+            Voxel 
+        }
+
+        
     }
 
 

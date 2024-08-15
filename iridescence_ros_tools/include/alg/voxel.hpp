@@ -60,6 +60,22 @@ namespace irtools{
             }
     };
 
+    class VoxelLOC{
+        public:
+            int64_t x, y, z;
+
+            VoxelLOC(int64_t x, int64_t y, int64_t z):x(x), y(y), z(z){};
+
+            bool operator==(const VoxelLOC& other) const{
+                return x == other.x && y == other.y && z == other.z;
+            }
+
+            std::size_t operator()(const VoxelLOC& voxel) const {
+                VoxelHash hash_fn;
+                return hash_fn(Eigen::Vector3d(x, y, z)) * HASH_P;
+            }
+    };
+
 
 
     typedef struct Plane{
@@ -93,11 +109,11 @@ namespace irtools{
 
         int layer_;
         int octo_state_;
-        int merge_num_ = 0;
+        int merge_num_ = 0; // 0 is end of tree, 1 is not
         bool is_project_ = false;
         std::vector<Eigen::Vector3d> proj_normal_vec_;
 
-        //check 6 directions of the voxel
+        //check 6 directions of the voxel: 0: x+, 1: x-, 2: y+, 3: y-, 4: z+, 5: z-
         bool is_check_connect_[6];
         bool connect_state_[6];
         OctoTree *connect_voxel_[6];
@@ -107,10 +123,14 @@ namespace irtools{
         Eigen::Vector3d center_;
         float quarter_length_;
 
-        bool init_state_ = false;
+        bool  init_octo_;
 
 
         OctoTree(const VoxelConfig &config):config_(config){
+            voxel_points_.clear();
+            octo_state_ = 0;
+            layer_ = 0;
+            init_octo_ = false;
                 for(int i = 0; i < 6; i++){
                     is_check_connect_[i] = false;
                     connect_state_[i] = false;
@@ -120,13 +140,49 @@ namespace irtools{
                 for(int i = 0; i < 8; i++){
                     leaves_[i] = nullptr;
                 }
+                plane_ptr_ = new Plane;
             }
         
         void init_plane();
         void init_octo_tree();
 
+
+        class VoxelManager{
+            VoxelManager() = default;
+
+            VoxelConfig config_;
+            
+            VoxelManager(VoxelConfig config):config_(config){};
+
+            public:
+                //voxelization and plane detection
+                void initVoxelMap(const pcl::PointCloud<pcl::PointXYZI>::Ptr &input_cloud,
+                      std::unordered_map<Voxel, OctoTree *> &voxel_map);
+
+                //build connection for planes
+                void connectPlane(std::unordered_map<Voxel, OctoTree *> &voxel_map);
+
+                //get planes from voxel map
+                void getPlane(const std::unordered_map<Voxel, OctoTree *> &voxel_map,
+                    pcl::PointCloud<pcl::PointXYZINormal>::Ptr &plane_cloud);
+
+
+
+                
+
+            private:
+
+
+
+            
+        
+
+        };
+
         
     };
+
+    
 
 
 
