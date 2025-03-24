@@ -2,3 +2,4 @@
 .vscode/settings.json
 .vscode/tasks.json
 /build/*
+iridescence_ros_tools/.vscode/*.json
