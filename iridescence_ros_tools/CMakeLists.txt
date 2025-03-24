@@ -9,6 +9,13 @@ set(OpenGL_GL_PREFERENCE GLVND)
 # set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_LIST_DIR}/cmake")
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
+set(SOURCE_FILES
+    src/utils/ros/TopicGrabber.cpp
+    src/gui/views/ToolViewer.cpp
+    src/gui/views/ROSTopicManager.cpp
+    src/gui/views/MainMenuPanel.cpp
+    src/viewer/viewer.cpp
+)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -141,8 +148,7 @@ add_definitions(${PCL_DEFINITIONS})
 
 ## Declare a C++ library
 add_library(${PROJECT_NAME} SHARED
-  src/utils/TopicGrabber.cpp
-  src/gui/ToolViewer.cpp
+  ${SOURCE_FILES}
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC
@@ -166,7 +172,7 @@ target_link_libraries(${PROJECT_NAME}
 
 
 add_executable(viewer
-src/viewer.cpp
+src/viewer/viewer.cpp
 )
 target_link_libraries(viewer
   ${PROJECT_NAME}
