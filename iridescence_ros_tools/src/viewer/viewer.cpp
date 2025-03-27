@@ -5,7 +5,5 @@
 int main(int argc, char** argv) {
   ros::init(argc, argv, "viewer");
   irtviewer::Viewer viewer;
-  
-
   return 0;
 }

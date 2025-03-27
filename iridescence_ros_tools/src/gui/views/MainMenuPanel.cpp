@@ -8,10 +8,20 @@ namespace irtgui
         {
             this->topic_manager_panel_->registerToolUI();
         }
+
+        for (auto image : *this->image_pool_)
+        {
+            if (image.second != nullptr)
+            {
+              updateROSImageDisplay(image.second, image.first, guik::LightViewer::instance());   
+            }
+        }
+
         ImGui::SetNextWindowSize(ImVec2(getWidth(), getHeight()), ImGuiCond_FirstUseEver);
         ImGui::Begin(getName().c_str(), NULL, ImGuiWindowFlags_MenuBar);
         toolUI();
         ImGui::End();
+        ros::spinOnce();
     }
 
     void MainMenuPanel::toolUI()

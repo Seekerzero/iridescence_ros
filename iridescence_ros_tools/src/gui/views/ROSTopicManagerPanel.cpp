@@ -70,10 +70,19 @@ namespace irtgui
 
                 if (ImGui::Button("Subscribe"))
                 {
-                    // subscribe to the topic
-                    // this->topicGrabber_->subscribeToTopic(topicName);
-                    // subscribed_topics_.push_back(topicName);
-                    // selectedTopicNode_ = nullptr;
+                    //check data type
+                    if (selectedTopicNode_->dataType == "sensor_msgs/Image")
+                    {
+                        this->topicManagerController_->subscribeNewImageTopic(topicName);
+
+                        this->subscribed_topics_.push_back(topicName);
+                    }
+
+                    //check the display option
+                    if (*selectedDisplayOption_ == "Image")
+                    {
+                        //add new panel to the display pool on the main menu
+                    }
                 }
             }
             else
