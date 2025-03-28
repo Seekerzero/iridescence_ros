@@ -17,7 +17,7 @@ namespace irtgui{
             {
                 // std::cout << "Received image on topic: " << topicName << std::endl;
                 // std::cout << "Image width: " << msg->width << ", height: " << msg->height << std::endl;
-                (*image_pool_)[topicName] = msg;
+                (*subs_image_pool_)[topicName] = msg;
             };
             auto sub = nh_.subscribe<sensor_msgs::Image>(topicName, 1, callback);
             subscribers_[topicName] = std::make_shared<ros::Subscriber>(sub);

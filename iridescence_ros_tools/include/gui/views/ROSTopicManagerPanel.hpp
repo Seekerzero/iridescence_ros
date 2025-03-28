@@ -17,15 +17,15 @@ namespace irtgui
             using Ptr = std::shared_ptr<ROSTopicManagerPanel>;
 
             void registerToolUI() override;
-            void setupImagePool(std::shared_ptr<std::map<std::string, sensor_msgs::ImageConstPtr>> image_pool)
+            void setupSubsImagePool(std::shared_ptr<std::map<std::string, sensor_msgs::ImageConstPtr>> subs_image_pool)
             {
-                this->image_pool_ = image_pool;
-                this->topicManagerController_->setupImagePool(this->image_pool_);
+                this->subs_image_pool_ = subs_image_pool;
+                this->topicManagerController_->setupSubsImagePool(this->subs_image_pool_);
             }
 
         private:
             ros::NodeHandle nh_;
-            std::shared_ptr<std::map<std::string, sensor_msgs::ImageConstPtr>> image_pool_ = std::make_shared<std::map<std::string, sensor_msgs::ImageConstPtr>>();
+            std::shared_ptr<std::map<std::string, sensor_msgs::ImageConstPtr>> subs_image_pool_ = std::make_shared<std::map<std::string, sensor_msgs::ImageConstPtr>>();
             std::shared_ptr<irtutils::TopicGrabber> topicGrabber_ = std::make_shared<irtutils::TopicGrabber>(nh_);
             std::shared_ptr<ROSTopicManagerController> topicManagerController_ = std::make_shared<ROSTopicManagerController>(nh_, image_pool_);
 

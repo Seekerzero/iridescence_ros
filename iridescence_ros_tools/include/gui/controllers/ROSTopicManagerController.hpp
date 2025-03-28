@@ -19,16 +19,16 @@ namespace irtgui{
         ros::NodeHandle &nh_;
         std::map<std::string, std::shared_ptr<ros::Subscriber>> subscribers_;
         std::map<std::string, std::shared_ptr<ros::Publisher>> publishers_;
-        std::shared_ptr<std::map<std::string, sensor_msgs::ImageConstPtr>> image_pool_ = std::make_shared<std::map<std::string, sensor_msgs::ImageConstPtr>>();
+        std::shared_ptr<std::map<std::string, sensor_msgs::ImageConstPtr>> subs_image_pool_ = std::make_shared<std::map<std::string, sensor_msgs::ImageConstPtr>>();
 
     
     public:
 
         void subscribeNewImageTopic(const std::string &topicName);
         
-        void setupImagePool(std::shared_ptr<std::map<std::string, sensor_msgs::ImageConstPtr>> image_pool)
+        void setupSubsImagePool(std::shared_ptr<std::map<std::string, sensor_msgs::ImageConstPtr>> subs_image_pool)
         {
-            this->image_pool_ = image_pool;
+            this->subs_image_pool_ = subs_image_pool;
         }
 
     

@@ -61,7 +61,9 @@ namespace irtgui
             };
 
             createMenu("ROS", {{"Topic Manager", [&]()
-                                 { this->topic_manager_panel_->setOpenFlag(true);}},});
+                                 { this->topic_manager_panel_->setOpenFlag(true);}},
+                                {"Pseudo Image Publisher", [&]()
+                                 {/*something publish image*/}}});
 
             ImGui::EndMenuBar();
         }
