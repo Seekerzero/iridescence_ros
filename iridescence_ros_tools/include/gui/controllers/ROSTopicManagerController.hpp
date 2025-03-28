@@ -11,7 +11,7 @@ namespace irtgui{
     class ROSTopicManagerController
     {
     public:
-        ROSTopicManagerController(ros::NodeHandle &nh, std::shared_ptr<std::map<std::string, sensor_msgs::ImageConstPtr>> image_pool) : nh_(nh), image_pool_(image_pool) {}
+        ROSTopicManagerController(ros::NodeHandle &nh, std::shared_ptr<std::map<std::string, sensor_msgs::ImageConstPtr>> subs_image_pool) : nh_(nh), subs_image_pool_(subs_image_pool) {}
         ~ROSTopicManagerController() {}
 
     

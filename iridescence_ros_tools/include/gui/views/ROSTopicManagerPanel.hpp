@@ -27,7 +27,7 @@ namespace irtgui
             ros::NodeHandle nh_;
             std::shared_ptr<std::map<std::string, sensor_msgs::ImageConstPtr>> subs_image_pool_ = std::make_shared<std::map<std::string, sensor_msgs::ImageConstPtr>>();
             std::shared_ptr<irtutils::TopicGrabber> topicGrabber_ = std::make_shared<irtutils::TopicGrabber>(nh_);
-            std::shared_ptr<ROSTopicManagerController> topicManagerController_ = std::make_shared<ROSTopicManagerController>(nh_, image_pool_);
+            std::shared_ptr<ROSTopicManagerController> topicManagerController_ = std::make_shared<ROSTopicManagerController>(nh_, subs_image_pool_);
 
             
             std::vector<std::string> subscribed_topics_;

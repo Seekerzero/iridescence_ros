@@ -9,7 +9,7 @@ namespace irtgui
             this->topic_manager_panel_->registerToolUI();
         }
 
-        for (auto image : *this->image_pool_)
+        for (auto image : *this->subs_image_pool_)
         {
             if (image.second != nullptr)
             {
