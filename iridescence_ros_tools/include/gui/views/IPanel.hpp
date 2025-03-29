@@ -4,6 +4,7 @@
 #include <guik/hovered_drawings.hpp>
 #include <guik/model_control.hpp>
 #include <gui/fonts/fonts.hpp>
+#include <portable-file-dialogs.h>
 
 namespace irtgui
 {

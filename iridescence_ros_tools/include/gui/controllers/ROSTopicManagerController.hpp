@@ -20,16 +20,28 @@ namespace irtgui{
         std::map<std::string, std::shared_ptr<ros::Subscriber>> subscribers_;
         std::map<std::string, std::shared_ptr<ros::Publisher>> publishers_;
         std::shared_ptr<std::map<std::string, sensor_msgs::ImageConstPtr>> subs_image_pool_ = std::make_shared<std::map<std::string, sensor_msgs::ImageConstPtr>>();
-
+        std::shared_ptr<std::map<std::string, sensor_msgs::ImageConstPtr>> pubs_image_pool_ = std::make_shared<std::map<std::string, sensor_msgs::ImageConstPtr>>();
     
     public:
 
         void subscribeNewImageTopic(const std::string &topicName);
+
+        void publishPseudoImageTopic(const std::string &topicName);
+
+        void updatePseduoImagePublish(const std::string &topicName);
+
         
         void setupSubsImagePool(std::shared_ptr<std::map<std::string, sensor_msgs::ImageConstPtr>> subs_image_pool)
         {
             this->subs_image_pool_ = subs_image_pool;
         }
+
+        void setupPubImagePool(std::shared_ptr<std::map<std::string, sensor_msgs::ImageConstPtr>> pub_image_pool)
+        {
+            this->pubs_image_pool_ = pub_image_pool;
+        }
+
+
 
     
 
@@ -58,7 +70,9 @@ namespace irtgui{
         bool checkIfPublishedTopicExists(const std::string &topicName)
         {
             return publishers_.find(topicName) != publishers_.end();
-        }   
+        }
+
+
 
     };
 

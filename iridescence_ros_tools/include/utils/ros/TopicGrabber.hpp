@@ -75,9 +75,9 @@ class TopicGrabber {
       return rootTree_;
     }
 
-    void spin() {
-      ros::spin();
-    }
+    // void spin() {
+    //   ros::spin();
+    // }
 
 };
 

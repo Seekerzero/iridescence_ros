@@ -12,7 +12,6 @@ set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
 set(SOURCE_FILES
     src/utils/ros/TopicGrabber.cpp
     src/gui/controllers/ROSTopicManagerController.cpp
-    src/gui/views/ToolViewer.cpp
     src/gui/views/MainMenuPanel.cpp
     src/gui/views/ROSTopicManagerPanel.cpp
     src/viewer/viewer.cpp
@@ -22,6 +21,7 @@ set(SOURCE_FILES
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
+  cv_bridge
   roscpp
   rospy
   std_msgs
@@ -36,7 +36,7 @@ find_package(Boost REQUIRED filesystem program_options)
 find_package(Eigen3 REQUIRED)
 find_package(PNG REQUIRED)
 find_package(JPEG REQUIRED)
-find_package(OpenCV REQUIRED)
+find_package(OpenCV 4.2 REQUIRED)
 
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
