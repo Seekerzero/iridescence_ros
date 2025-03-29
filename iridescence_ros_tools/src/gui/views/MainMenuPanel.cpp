@@ -27,7 +27,10 @@ namespace irtgui
     void MainMenuPanel::toolUI()
     {   
         menuBarUI();
+        //TODO: add load configuration when there is a configuration file
+        //TODO: add save configuration
         robotControlModeUI();
+        //TODO: add ImageDisplay Control UI when there is a image display
     }
 
     void MainMenuPanel::robotControlModeUI()
