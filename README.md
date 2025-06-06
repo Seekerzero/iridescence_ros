@@ -1,6 +1,5 @@
 # iridescence_ros
-
-iridescence_ros provides ROS integration for the [Iridescence](https://github.com/...) visualization toolkit. It includes a lightweight GUI based on ImGui that allows you to view and publish ROS topics directly from an interactive window.
+iridescence_ros provides ROS integration for the [Iridescence](https://github.com/koide3/iridescence) visualization toolkit. It includes a lightweight GUI based on ImGui that allows you to view and publish ROS topics directly from an interactive window.
 
 ## Features
 
@@ -27,7 +26,8 @@ cd iridescence_ros
 sudo apt-get install ros-$ROS_DISTRO-roscpp ros-$ROS_DISTRO-rospy ros-$ROS_DISTRO-std-msgs ros-$ROS_DISTRO-cv-bridge libpcl-dev libeigen3-dev libjpeg-dev libpng-dev
 ```
 
-Ensure the [Iridescence](https://github.com/...) library is installed on your system so CMake can find it.
+Ensure the [Iridescence](https://github.com/koide3/iridescence) library is installed on your system so CMake can find it.
+
 
 3. Build with catkin:
 
