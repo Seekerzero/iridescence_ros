@@ -16,7 +16,7 @@ These instructions assume ROS Noetic on Ubuntu. The project also depends on `iri
 1. Clone the repository and its submodules:
 
 ```bash
-git clone --recursive <repo_url>
+git clone --recursive https://github.com/Seekerzero/iridescence_ros.git
 cd iridescence_ros
 ```
 
